@@ -1,0 +1,52 @@
+﻿@model lab_4.Models.Stations
+
+@{
+    ViewData["Title"] = "Stations";
+    //Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Edit Station</title>
+</head>
+
+<body>
+    <div class='container'>
+        <h2>Edit station</h2>
+        <form action="" method="post">
+            <ul class='responsive-table'>
+                <li class='table-row'>
+                    <div class='col col-1' data-label='Station Id'>
+                        @Model.StationId
+                    </div>
+                    <div class='col col-2' data-label='Station'>
+                        <input type="text" name="Station" value=@Model.Station>
+                    </div>
+                    <div class='col col-2' data-label='Distance'>
+                        <input type="text" name="Distance" value=@Model.Distance>
+                    </div>
+                    <div class='col col-3' data-label='Cost'>
+                        <input type="text" name="Cost" value=@Model.Cost>
+                    </div>
+                    <div class='sub' data-label='Submit'>
+                        <input
+                               asp-action="EditStation" asp-controller="Stations" asp-route-station="@{new Stations {
+                                           StationId = Model.StationId,
+                                           Station = Model.Station,
+                                           Distance = Model.Distance,
+                                           Cost = Model.Cost
+                                       }; }" asp-route-id="@Model.StationId"
+                               type="submit" value="Change" class="btn btn-success" required>
+                    </div>
+
+
+
+                </li>
+            </ul>
+        </form>
+    </div>
+
+</body>
+</html>

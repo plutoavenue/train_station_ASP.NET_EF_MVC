@@ -1,0 +1,83 @@
+﻿@model lab_4.Models.Passangers
+
+@{
+    ViewData["Title"] = "Passangers";
+    //Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Edit Passanger</title>
+</head>
+
+<body>
+    <div class='container'>
+        <h2>Edit passanger's info</h2>
+        <form action="" method="post">
+            <ul class='responsive-table'>
+                <li class='table-row'>
+                    <div class='col col-1' data-label='Passenger Id'>
+                        @Model.PassengerId
+                    </div>
+                    <div class='col col-2' data-label='FullName'>
+                        <input type="text" name="FullName" value=@Model.FullName>
+                    </div>
+                    <div class='col col-2' data-label='Address'>
+                        <input type="text" name="Address" value=@Model.Address>
+                    </div>
+                    <div class='col col-3' data-label='Phone'>
+                        <input type="text" name="Phone" value=@Model.Phone>
+                    </div>
+                    <div class='sub' data-label='Submit'>
+                        <input asp-action="EditPassenger" asp-controller="Passenger" asp-route-station="@{new Passangers {
+                                           PassengerId = Model.PassengerId,
+                                           FullName = Model.FullName,
+                                           Address = Model.Address,
+                                           Phone = Model.Phone
+                                       }; }" asp-route-id="@Model.PassengerId"
+                               type="submit" value="Change" class="btn btn-success" required>
+                    </div>
+
+
+
+                </li>
+            </ul>
+        </form>
+    </div>
+
+
+    <div class='container'>
+        <h2>Add new passenger</h2>
+        <form action="" method="post">
+            <ul class='responsive-table'>
+                <li class='table-row'>
+
+                    <div class='col col-2' data-label='Full Name'>
+                        <input type="text" name="Full Name" value="Full Name">
+                    </div>
+                    <div class='col col-2' data-label='Address'>
+                        <input type="text" name="Address" value="Address">
+                    </div>
+                    <div class='col col-2' data-label='Phone'>
+                        <input type="text" name="Phone" value="Phone">
+                    </div>
+                    <div class='sub' data-label='Submit'>
+                        <input asp-action="AddPassenger" asp-controller="Passenger" asp-route-newPassenger="@{new Passangers {
+                    FullName = "",
+                    Phone = "",
+                    Address = ""
+                };}"
+                               type="submit" value="Add new passenger" class="btn btn-success" required />
+                    </div>
+
+
+
+                </li>
+            </ul>
+        </form>
+    </div>
+
+</body>
+</html>

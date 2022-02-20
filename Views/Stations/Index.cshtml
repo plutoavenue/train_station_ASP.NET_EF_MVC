@@ -1,0 +1,84 @@
+﻿@model IEnumerable<lab_4.Models.Stations>
+@{
+    ViewData["Title"] = "Stations";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Stations</title>
+</head>
+<body>
+    <div class='positioned'>
+        <img src='./ukrzaliznitsa.png' height='200' />
+    </div>
+    <div class='container'>
+        <h2>The list of stations</h2>
+        <ul class='responsive-table'>
+            <li class='table-header'>
+                <div class='col col-1'>ID</div>
+                <div class='col col-2'>Station</div>
+                <div class='col col-3'>Distance</div>
+                <div class='col col-4'>Cost</div>
+                <div class='col col-1'></div>
+                <div class='col col-1'></div>
+
+            </li>
+
+            @foreach (var stations in Model)
+            {
+        <li class='table-row'>
+
+            <div class='col col-1' data-label='Station Id'>@stations.StationId</div>
+            <div class='col col-2' data-label='Station'>@stations.Station</div>
+            <div class='col col-3' data-label='Distance'>@stations.Distance</div>
+            <div class='col col-4' data-label='Cost'>@stations.Cost</div>
+            <div class='col col-1' data-label='Edit'>
+                <a href="@Url.Action("EditStation", "Stations", new { stationId = stations.StationId})" class="btn btn-warning">Edit</a>
+            </div>
+            <div class='col col-1' data-label='Delete'>
+                <form asp-action="DeleteStation"
+                      asp-controller="Stations"
+                      asp-route-stationId="@stations.StationId">
+                    <input type="submit" value="Remove" class="btn btn-danger" />
+                </form>
+            </div>
+        </li>
+            }
+        </ul>
+       
+    </div>
+
+    <div class='container'>
+        <h2>Add new station</h2>
+        <form action="" method="post">
+            <ul class='responsive-table'>
+                <li class='table-row'>
+                    
+                    <div class='col col-2' data-label='Station'>
+                        <input type="text" name="Station" value="Station">
+                    </div>
+                    <div class='col col-2' data-label='Distance'>
+                        <input type="text" name="Distance" value="Distance">
+                    </div>
+                    <div class='col col-3' data-label='Cost'>
+                        <input type="text" name="Cost" value="Cost">
+                    </div>
+                    <div class='sub' data-label='Submit'>
+                        <input asp-action="AddStation" asp-controller="Stations" asp-route-newStation="@{new Stations {
+                    Station = "",
+                    Distance = 0,
+                    Cost = 0
+                };}"
+                               type="submit" value="Add new station" class="btn btn-success" required />
+                    </div>
+
+
+
+                </li>
+            </ul>
+        </form>
+    </div>
+
+</body>
+</html>

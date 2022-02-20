@@ -1,0 +1,170 @@
+﻿@model IEnumerable<lab_4.ViewModels.BookingViewModel>
+@{
+    ViewData["Title"] = "Tickets";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Tickets</title>
+</head>
+<body>
+    <div class='positioned'>
+        <img src='./ukrzaliznitsa.png' height='200' />
+    </div>
+    @Context.Request.Query["id"]
+    <div class='container'>
+        <h2>The list of tickets</h2>
+        <ul class='responsive-table'>
+            <li class='table-header'>
+                <div class='col col-1'>ID</div>
+                <div class='col col-3'>Passenger</div>
+                <div class='col col-1'>Train</div>
+                <div class='col col-1'>Car</div>
+                <div class='col col-2'>Departure Time</div>
+                <div class='col col-2'>Arrival Time</div>
+                <div class='col col-1'>Station</div>
+                <div class='col col-1'>Extra Time Fee</div>
+                <div class='col col-1'></div>
+                <div class='col col-1'></div>
+            </li>
+
+            @foreach (var ticket in Model)
+            {
+                <li class='table-row'>
+
+                    <div class='col col-1' data-label='ID'>@ticket.TicketId</div>
+                    <div class='col col-3' data-label='Passenger'>@ticket.FullName</div>
+                    <div class='col col-1' data-label='Train'>@ticket.Train</div>
+                    <div class='col col-1' data-label='Car'>@ticket.Car</div>
+                    <div class='col col-2' data-label='Departure Date'>@ticket.DepartureDate</div>
+                    <div class='col col-2' data-label='Arrival Time'>@ticket.ArrivalTime</div>
+                    <div class='col col-1' data-label='Station'>@ticket.Station</div>
+                    <div class='col col-1' data-label='Extra Time Fee'>@ticket.ExtraTimeFee</div>
+                    <div class='col col-1' data-label='Edit'>
+                        <a href="@Url.Action("EditTicket", "Booking", new { ticketId = ticket.TicketId})" class="btn btn-warning">Edit</a>
+                    </div>
+                    <div class='col col-1' data-label='Delete'>
+                        <form asp-action="DeleteTicket"
+                              asp-controller="Booking"
+                              asp-route-stationId="@ticket.TicketId">
+                            <input type="submit" value="Remove" class="btn btn-danger" />
+                        </form>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+
+
+
+    <div class='container'>
+        <h2>Book new ticket</h2>
+        <form action="" method="post">
+            <ul class='responsive-table'>
+                <li class='table-row-light'>
+                    <div class='col col-2' data-label='PassengerId'>
+                        <h4>Passenger ID</h4>
+                    </div>
+
+                    <div class='col col-3' data-label='PassengerId'>
+                        <input type="text" name="PassengerId" value="PassengerId">
+                    </div>
+
+                </li>
+
+                <li class='table-row-light'>
+                    <div class='col col-2' data-label='PassengerId'>
+                        <h4>Train ID</h4>
+                    </div>
+
+                    <div class='col col-3' data-label='TrainId'>
+                        <input type="text" name="TrainId" value="TrainId">
+                    </div>
+                </li>
+
+                <li class='table-row-light'>
+                    <div class='col col-2' data-label='PassengerId'>
+                        <h4>Car ID</h4>
+                    </div>
+
+                    <div class='col col-3' data-label='CarId'>
+                        <input type="text" name="CarId" value="CarId">
+                    </div>
+                </li>
+
+                <li class='table-row-light'>
+                    <div class='col col-2' data-label='PassengerId'>
+                        <h4>Departure Date</h4>
+
+                    </div>
+
+                    <div class='col col-3' data-label='DepartureDate'>
+                        <input type="text" name="DepartureDate" value="DepartureDate">
+                    </div>
+                </li>
+
+                <li class='table-row-light'>
+                    
+                    <div class='col col-2' data-label='PassengerId'>
+                        <h4>Departure Time</h4>
+                    </div>
+
+                    <div class='col col-3' data-label='DepartureTime'>
+                        <input type="text" name="DepartureTime" value="DepartureTime">
+                    </div>
+                </li>
+
+                <li class='table-row-light'>
+                    <div class='col col-2' data-label='PassengerId'>
+                        <h4>Arrival Time</h4>
+                    </div>
+
+                    <div class='col col-3' data-label='ArrivalTime'>
+                        <input type="text" name="ArrivalTime" value="ArrivalTime">
+                    </div>
+                </li>
+
+                <li class='table-row-light'>
+                    <div class='col col-2' data-label='PassengerId'>
+                        <h4>Station ID</h4>
+                    </div>
+
+                    <div class='col col-3' data-label='StationId'>
+                        <input type="text" name="StationId" value="StationId">
+                    </div>
+                </li>
+
+                <li class='table-row-light'>
+                    <div class='col col-2' data-label='PassengerId'>
+                        <h4>Extra Time Fee </h4>
+                    </div>
+
+                    <div class='col col-3' data-label='ExtraTimeFee'>
+                        <input type="text" name="ExtraTimeFee" value="ExtraTimeFee">
+                    </div>
+                </li>
+
+                <li class='table-row'>
+                    <div class='sub' data-label='Submit'>
+                        <input asp-action="AddTicket" asp-controller="Booking" asp-route-newTicket="@{new Tickets {
+                                    PassengerId = 1,
+                                    TrainId = 1,
+                                    CarId = 1,
+                                    DepartureDate = new DateTime(),
+                                    DepartureTime = new TimeSpan(),
+                                    ArrivalTime =  new TimeSpan(),
+                                    StationId = 0,
+                                    ExtraTimeFee = 0,
+                                };}"
+                               type="submit" value="Add new station" class="btn btn-success" required />
+                    </div>
+                </li>
+
+            </ul>
+        </form>
+    </div>
+
+
+</body>
+</html>

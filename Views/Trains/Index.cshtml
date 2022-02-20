@@ -1,0 +1,76 @@
+﻿@model IEnumerable<lab_4.Models.Trains>
+@{
+    ViewData["Title"] = "Trains";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Trains</title>
+</head>
+<body>
+    <div class='positioned'>
+        <img src='./ukrzaliznitsa.png' height='200' />
+    </div>
+    <div class='container'>
+        <h2>The list of trains</h2>
+        <ul class='responsive-table'>
+            <li class='table-header'>
+                <div class='col col-1'>ID</div>
+                <div class='col col-2'>Train</div>
+                <div class='col col-3'>Train Type</div>
+                <div class='col col-1'></div>
+                <div class='col col-1'></div>
+            </li>
+
+            @foreach (var train in Model)
+            {
+                <li class='table-row'>
+
+                    <div class='col col-1' data-label='ID'>@train.TrainId</div>
+                    <div class='col col-2' data-label='Car'>@train.Train</div>
+                    <div class='col col-3' data-label='Train'>@train.TrainType</div>
+                    <div class='col col-1' data-label='Edit'>
+                        <a href="@Url.Action("EditTrain", "Trains", new { trainId = train.TrainId})" class="btn btn-warning">Edit</a>
+                    </div>
+                    <div class='col col-1' data-label='Delete'>
+                        <form asp-action="DeleteTrain"
+                              asp-controller="Trains"
+                              asp-route-trainId="@train.TrainId">
+                            <input type="submit" value="Remove" class="btn btn-danger" />
+                        </form>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div class='container'>
+        <h2>Add new train</h2>
+        <form action="" method="post">
+            <ul class='responsive-table'>
+                <li class='table-row'>
+
+                    <div class='col col-2' data-label='Train'>
+                        <input type="text" name="Train" value="Train">
+                    </div>
+                    <div class='col col-2' data-label='TrainType'>
+                        <input type="text" name="TrainType" value="TrainType">
+                    </div>
+                    <div class='sub' data-label='Submit'>
+                        <input asp-action="AddTrain" asp-controller="Trains" asp-route-newStation="@{new Trains {
+                    Train = "",
+                    TrainType = ""
+                };}"
+                               type="submit" value="Add new train" class="btn btn-success" required />
+                    </div>
+
+
+
+                </li>
+            </ul>
+        </form>
+    </div>
+
+</body>
+</html>

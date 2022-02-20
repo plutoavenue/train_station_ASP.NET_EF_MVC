@@ -1,0 +1,48 @@
+﻿@model lab_4.Models.Trains
+
+@{
+    ViewData["Title"] = "Trains";
+    //Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Edit Train</title>
+</head>
+
+<body>
+    <div class='container'>
+        <h2>Edit train</h2>
+        <form action="" method="post">
+            <ul class='responsive-table'>
+                <li class='table-row'>
+                    <div class='col col-1' data-label='Station Id'>
+                        @Model.TrainId
+                    </div>
+                    <div class='col col-2' data-label='Train'>
+                        <input type="text" name="Train" value=@Model.Train>
+                    </div>
+                    <div class='col col-2' data-label='TrainType'>
+                        <input type="text" name="TrainType" value=@Model.TrainType>
+                    </div>
+                    <div class='sub' data-label='Submit'>
+                        <input
+                               asp-action="EditTrain" asp-controller="Trains" asp-route-station="@{new Trains {
+                                           TrainId = Model.TrainId,
+                                           Train = Model.Train,
+                                           TrainType = Model.TrainType
+                                       }; }" asp-route-id="@Model.TrainId"
+                               type="submit" value="Change" class="btn btn-success" required>
+                    </div>
+
+
+
+                </li>
+            </ul>
+        </form>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<lab_4.Models.Passangers>
+@{
+    ViewData["Title"] = "Passengers";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Passengers</title>
+</head>
+<body>
+<div class='positioned'>
+    <img src='./ukrzaliznitsa.png' height='200' />
+</div>
+<div class='container'>
+    <h2>The list of passengers</h2>
+    <ul class='responsive-table'>
+        <li class='table-header'>
+            <div class='col col-1'>ID</div>
+            <div class='col col-2'>Full Name</div>
+            <div class='col col-3'>Address</div>
+            <div class='col col-4'>Phone</div>
+            <div class='col col-1'></div>
+            <div class='col col-1'></div>
+        </li>
+
+        @foreach (var passenger in Model)
+        {
+    <li class='table-row'>
+
+        <div class='col col-1' data-label='PassengerId'>@passenger.PassengerId</div>
+        <div class='col col-2' data-label='FullName'>@passenger.FullName</div>
+        <div class='col col-3' data-label='Address'>@passenger.Address</div>
+        <div class='col col-4' data-label='Phone'>@passenger.Phone</div>
+        <div class='col col-1' data-label='Edit'>
+            <a href="@Url.Action("EditPassenger", "Passenger", new { passengerId = passenger.PassengerId})" class="btn btn-warning">Edit</a>
+        </div>
+        <div class='col col-1' data-label='Delete'>
+            <form asp-action="DeletePassenger"
+                  asp-controller="Passengers"
+                  asp-route-passengerId="@passenger.PassengerId">
+                <input type="submit" value="Remove" class="btn btn-danger" />
+            </form>
+        </div>
+    </li>
+        }
+    </ul>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<lab_4.Models.Cars>
+@{
+    ViewData["Title"] = "Cars";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Cars</title>
+</head>
+<body>
+<div class='positioned'>
+    <img src='./ukrzaliznitsa.png' height='200' />
+</div>
+<div class='container'>
+    <h2>The list of cars</h2>
+    <ul class='responsive-table'>
+        <li class='table-header'>
+            <div class='col col-1'>ID</div> 
+            <div class='col col-2'>Car</div> 
+            <div class='col col-3'>Train ID</div> 
+            <div class='col col-4'>Car Type</div> 
+            <div class='col col-4'>Extra Car Fee</div> 
+
+        </li>
+
+        @foreach (var cars in Model)
+        {
+    <li class='table-row'>
+
+        <div class='col col-1' data-label='ID'>@cars.CarId</div>
+        <div class='col col-2' data-label='Car'>@cars.Car</div>
+        <div class='col col-3' data-label='Train'>@cars.TrainId</div>
+        <div class='col col-4' data-label='Car Type'>@cars.CarType</div>
+        <div class='col col-4' data-label='Extra Car Fee'>@cars.ExtraCarFee</div>
+
+    </li>
+        }
+    </ul>
+</div>
+
+</body>
+</html>
